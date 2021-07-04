@@ -17,21 +17,21 @@ def menu()->None:
             print("Error! ingrese una respuesta valida")
             opcion = input("Error! ingrese una respuesta valida")
 
-        if opcion == 1:
+        if opcion == "1":
             pass
-        elif opcion == 2:
+        elif opcion == '2':
             pass
-        elif opcion == 3:
+        elif opcion == '3':
             pass
-        elif opcion == 4:
+        elif opcion == '4':
             pass
-        elif opcion == 5:
+        elif opcion == '5':
             pass
-        elif opcion == 6:
+        elif opcion == '6':
             pass
-        elif opcion == 7:
+        elif opcion == '7':
             pass
-        elif opcion == 8:
+        elif opcion == '8':
             continuar = False
 
 def main()->None:
