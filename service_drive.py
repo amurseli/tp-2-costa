@@ -69,3 +69,5 @@ def obtener_servicio() -> Resource:
     :return: service
     """
     return build(API_NAME, API_VERSION, credentials=generar_credenciales())
+
+obtener_servicio()
