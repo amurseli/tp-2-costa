@@ -16,7 +16,7 @@ def validar_opcion_menu(opcion_menu: str)->int:
 
     return opcion_menu
 
-def mostrar_archivos_remoto(path:str)->None:
+def mostrar_archivos_local(path:str)->None:
     print("\nCarpeta actual: {}".format(path))
     print("Lista de archivos que se encuentran en su carpeta actual:\n")
     for archivo in os.listdir(path):
@@ -24,7 +24,7 @@ def mostrar_archivos_remoto(path:str)->None:
         if os.path.isfile(nuevo_path):
             print(archivo)
 
-def mostrar_carpetas_remoto(path:str)->None:
+def mostrar_carpetas_local(path:str)->None:
     print("\nCarpeta actual: {}".format(path))
     print("Lista de sub-carpetas que se encuentran en su carpeta actual:\n")
     for carpeta in os.listdir(path):
@@ -32,9 +32,9 @@ def mostrar_carpetas_remoto(path:str)->None:
         if os.path.isdir(nuevo_path):
             print(carpeta)
 
-def listar_todo_remoto(path:str)->None:
-    mostrar_archivos_remoto(path)
-    mostrar_carpetas_remoto(path)
+def listar_todo_local(path:str)->None:
+    mostrar_archivos_local(path)
+    mostrar_carpetas_local(path)
 
 def modifi_sub_carpetas(sub_carpetas:list, path:str)->None:
     for carpeta in os.listdir(path):
@@ -74,14 +74,14 @@ def opcion_navegar(path:str, sub_carpetas:list)->str:
     if opcion_navegar.lower() == "acceder":
         carpeta_acceder = validar_carpeta_existente(sub_carpetas, input("\nIngrese la carpeta a la que quiere acceder: "))
         path = os.path.join(path, carpeta_acceder) #Se va modificando la var path que pase al principio
-        listar_todo_remoto(path)
+        listar_todo_local(path)
 
     else:
         #PD: se puede usar os.path.split(path) para obtener una tupla (path, carpeta)
         #y mostrarle la carpeta de la que acaba de salir, pero ya en los prints le muestro donde
         #esta parado, asi que creo que no hace falta
         path = os.path.dirname(path)
-        listar_todo_remoto(path)
+        listar_todo_local(path)
 
     return path
 
@@ -108,7 +108,7 @@ def navegar_entre_carpetas(path:str)->None:
             opcion_volver = validar_ingreso_si_no(input("\nDesea volver para atras?: "))
             if opcion_volver == "si":
                 path = os.path.dirname(path)
-                listar_todo_remoto(path)
+                listar_todo_local(path)
 
             else:
                 continuar = False 
@@ -118,7 +118,7 @@ def listar_archivos()->None:
     mostrar_opciones()
     opcion_menu = validar_opcion_menu(input("Ingrese una opcion: ")) #el return de la funcion es STR
     if opcion_menu == "1":
-        listar_todo_remoto(path)
+        listar_todo_local(path)
         navegar_entre_carpetas(path)
 
     else:
