@@ -2,6 +2,7 @@ from json.encoder import py_encode_basestring_ascii
 from service_drive import obtener_servicio
 from googleapiclient.http import MediaFileUpload
 from googleapiclient.http import MediaIoBaseDownload
+from select_folder import select_folder
 import io
 
 FILE_TYPES = [
@@ -18,47 +19,90 @@ MIME_TYPES_DICT = {
     "mp3": "audio/mpeg"
 }
 
-service = obtener_servicio()
-# response = service.files().list().execute()
-# print(response)
+SERVICE = obtener_servicio()
+
+# files = service.files().list(fields='files(name, id, mimeType)').execute().get('files')
+# for element in files:
+#     for key,value in element.items():
+#         print (f"{key} - {value}")
+
 
 def crear_archivo_nuevo() -> None:
-    new_file_name = input("Escriba el nombre que quiere darle a su archivo, sin su extension: ")
-    for element in FILE_TYPES:
-        print (element)
-    file_ext_choice = input("Seleccione un número correspondiente al tipo de archivo que desea subir: ")
-    if file_ext_choice == "1":
-        mime_type = "text/plain"
-        file_metadata = {
-            'name': new_file_name,
-            'mimeType': mime_type
-            #"parents": []
-        }
-        service.files().create(body=file_metadata).execute()
-    elif file_ext_choice == "2":
-        mime_type = "application/vnd.ms-excel"
-        file_metadata = {
-            'name': new_file_name,
-            'mimeType': mime_type
-            #"parents": []
-        }
-        service.files().create(body=file_metadata).execute()
-    elif file_ext_choice == "3":
-        mime_type = "image/jpeg"
-        file_metadata = {
-            'name': new_file_name,
-            'mimeType': mime_type
-            #"parents": []
-        }
-        service.files().create(body=file_metadata).execute()
-    elif file_ext_choice == "4":
-        mime_type = "audio/mpeg"
-        file_metadata = {
-            'name': new_file_name,
-            'mimeType': mime_type
-            #"parents": []
-        }
-        service.files().create(body=file_metadata).execute()
+    
+    folder_id, flag_root = select_folder(SERVICE)
+    if flag_root == True:
+        new_file_name = input("Escriba el nombre que quiere darle a su archivo, sin su extension: ")
+        for element in FILE_TYPES:
+            print (element)
+        file_ext_choice = input("Seleccione un número correspondiente al tipo de archivo que desea subir: ")
+        if file_ext_choice == "1":
+            mime_type = "text/plain"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "2":
+            mime_type = "application/vnd.ms-excel"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "3":
+            mime_type = "image/jpeg"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "4":
+            mime_type = "audio/mpeg"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+    else:
+        new_file_name = input("Escriba el nombre que quiere darle a su archivo, sin su extension: ")
+        for element in FILE_TYPES:
+            print (element)
+        file_ext_choice = input("Seleccione un número correspondiente al tipo de archivo que desea subir: ")
+        if file_ext_choice == "1":
+            mime_type = "text/plain"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+                "parents": [folder_id]
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "2":
+            mime_type = "application/vnd.ms-excel"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+                "parents": [folder_id]
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "3":
+            mime_type = "image/jpeg"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+                "parents": [folder_id]
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "4":
+            mime_type = "audio/mpeg"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+                "parents": [folder_id]
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+
+
+    print("¡El archivo fue creado con éxito!")
 
 crear_archivo_nuevo()
 

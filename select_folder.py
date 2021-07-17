@@ -1,5 +1,7 @@
 
-def select_folder(service) -> str:
+def select_folder(service) -> tuple:
+    folder_id = " "
+    flag_root = True
     files = service.files().list(fields='files(name, id, mimeType)',q="mimeType='application/vnd.google-apps.folder'").execute().get('files')
     i = 0
     for element in files:
@@ -13,7 +15,10 @@ def select_folder(service) -> str:
         for key,value in element.items():
             if element[key] == name:
                 target_file = element
+                folder_id = target_file["id"] 
+                flag_root = False
 
-    folder_id = target_file["id"]
-    return folder_id
+    
+    
+    return (folder_id, flag_root)
     
