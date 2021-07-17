@@ -9,7 +9,8 @@ FILE_TYPES = [
     "1- Archivo de texto .txt",
     "2- Archivo excel .xls",
     "3- Foto .jpg",
-    "4- Audio .mp3"
+    "4- Audio .mp3",
+    "5- Carpeta vacía"
 ]
 
 MIME_TYPES_DICT = {
@@ -21,14 +22,7 @@ MIME_TYPES_DICT = {
 
 SERVICE = obtener_servicio()
 
-# files = service.files().list(fields='files(name, id, mimeType)').execute().get('files')
-# for element in files:
-#     for key,value in element.items():
-#         print (f"{key} - {value}")
-
-
-def crear_archivo_nuevo() -> None:
-    
+def crear_archivo_nuevo() -> None: 
     folder_id, flag_root = select_folder(SERVICE)
     if flag_root == True:
         new_file_name = input("Escriba el nombre que quiere darle a su archivo, sin su extension: ")
@@ -58,6 +52,13 @@ def crear_archivo_nuevo() -> None:
             SERVICE.files().create(body=file_metadata).execute()
         elif file_ext_choice == "4":
             mime_type = "audio/mpeg"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "5":
+            mime_type = 'application/vnd.google-apps.folder'
             file_metadata = {
                 'name': new_file_name,
                 'mimeType': mime_type,
@@ -94,6 +95,14 @@ def crear_archivo_nuevo() -> None:
             SERVICE.files().create(body=file_metadata).execute()
         elif file_ext_choice == "4":
             mime_type = "audio/mpeg"
+            file_metadata = {
+                'name': new_file_name,
+                'mimeType': mime_type,
+                "parents": [folder_id]
+            }
+            SERVICE.files().create(body=file_metadata).execute()
+        elif file_ext_choice == "5":
+            mime_type = 'application/vnd.google-apps.folder'
             file_metadata = {
                 'name': new_file_name,
                 'mimeType': mime_type,
