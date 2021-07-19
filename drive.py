@@ -114,37 +114,6 @@ def crear_archivo_nuevo() -> None:
             SERVICE.files().create(body=file_metadata).execute()
     print("¡El archivo fue creado con éxito!")
 
-# def subir_archivos() -> None:
-#     folder_id, flag_root = select_folder(SERVICE)
-
-#     mime_type = "image/jpeg"
-
-#     path = askopenfilename(title='Seleccione un archivo')
-#     path_split = path.split("/")
-#     file_name = path_split[-1]
-
-#     if flag_root == False:
-#         file_metadata = {
-#             "name" : file_name,
-#             "parents" : [folder_id]
-#         }
-#     else:
-#         file_metadata = {
-#             "name" : file_name,
-#         }
-
-#     media = MediaFileUpload(path, mimetype=mime_type)
-
-#     SERVICE.files().create(
-#         body = file_metadata,
-#         media_body = media,
-#         fields = "id"
-#     ).execute()
-
-#     print("El archivo se subió Exitosamente")
-
-
-
 def descargar_archivos() -> None:
     folder_id, flag_root = select_folder(SERVICE)
     if flag_root == False:
@@ -196,6 +165,3 @@ def descargar_archivos() -> None:
         print("Algunos de los archivos no descargables son los que fueron editados por las aplicaciones de drive como 'Google Docs' o 'Goggle Sheets'")
         return False
     
-    
-
-subir_archivos(SERVICE)
