@@ -1,10 +1,10 @@
-import shutil
 import io
 import os
+from tkinter import Tk
+from tkinter.filedialog import askdirectory, askopenfilename
 from json.encoder import py_encode_basestring_ascii
 from service_drive import obtener_servicio
-from googleapiclient.http import MediaFileUpload
-from googleapiclient.http import MediaIoBaseDownload
+from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from select_folder import select_folder
 
 FILE_TYPES = [
@@ -113,27 +113,27 @@ def crear_archivo_nuevo() -> None:
             SERVICE.files().create(body=file_metadata).execute()
     print("¡El archivo fue creado con éxito!")
 
-
-
 def subir_archivos() ->None:
-    folder_id = "1jjV0gKN_gM7aSYWCsqdLnIX_wa_qBSxt"
+    folder_id, flag_root = select_folder(SERVICE)
 
-    file_names = ["Prueba.txt", "Esto es otra Prueba.rar"]
-    mime_types = ["text/plain","application/vnd.rar"]
+    mime_type = "image/jpeg"
 
-    for file_name, mime_type in zip(file_names, mime_types):
-        file_metadata = {
-            "name" : file_name,
-            "parents" : [folder_id]
-        }
+    path = askopenfilename(title='Seleccione un archivo')
+    path_split = path.split("/")
+    file_name = path_split[-1]
 
-        media = MediaFileUpload("C:\\Users\\Matias\\Desktop\\{0}".format(file_name), mimetype=mime_type)
+    file_metadata = {
+        "name" : file_name,
+        "parents" : [folder_id]
+    }
 
-        service.files().create(
-            body = file_metadata,
-            media_body = media,
-            fields = "id"
-        ).execute()
+    media = MediaFileUpload(path, mimetype=mime_type)
+
+    SERVICE.files().create(
+        body = file_metadata,
+        media_body = media,
+        fields = "id"
+    ).execute()
 
 
 def descargar_archivos() -> None:
@@ -163,9 +163,11 @@ def descargar_archivos() -> None:
     request = SERVICE.files().get_media(fileId=file_id)
     fh = io.BytesIO()
         
-    # Initialise a downloader object to download the file
     downloader = MediaIoBaseDownload(fh, request, chunksize=204800)
     done = False
+
+    print("Seleccione una Carpeta en la ventan que se acaba de abrir. Es posible que no se haya abierto en primer plano.")
+    path = askdirectory(title='Seleccione una carpeta') 
 
     try:
         # Download the data in chunks
@@ -173,20 +175,18 @@ def descargar_archivos() -> None:
             status, done = downloader.next_chunk()
 
         fh.seek(0)
-            
-        # Write the received data to the file
-        with open(f"C:\\Users\\Matias\\Desktop\\{file_name}", 'wb') as f:
-            shutil.copyfileobj(fh, f)
 
-        print("File Downloaded")
-        # Return True if file Downloaded successfully
-        return True
-    except:
-        
-        # Return False if something went wrong
-        print("Something went wrong.")
+        with open(f"{path}\\{file_name}", 'wb') as f:
+            f.write(fh.read())
+
+        print("Archivo Descargado con éxito!")
+    except :
+    
+        print("Algo salió Mal.")
+        print("Es probable que estes intentando descargar un archivo no descargable.")
+        print("Algunos de los archivos no descargables son los que fueron editados por las aplicaciones de drive como 'Google Docs' o 'Goggle Sheets'")
         return False
     
     
 
-descargar_archivos()
+subir_archivos()
