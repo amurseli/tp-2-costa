@@ -6,6 +6,7 @@ from json.encoder import py_encode_basestring_ascii
 from service_drive import obtener_servicio
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 from select_folder import select_folder
+from subir_archivo import subir_archivos
 
 FILE_TYPES = [
     "1- Archivo de texto .txt",
@@ -113,27 +114,35 @@ def crear_archivo_nuevo() -> None:
             SERVICE.files().create(body=file_metadata).execute()
     print("¡El archivo fue creado con éxito!")
 
-def subir_archivos() ->None:
-    folder_id, flag_root = select_folder(SERVICE)
+# def subir_archivos() -> None:
+#     folder_id, flag_root = select_folder(SERVICE)
 
-    mime_type = "image/jpeg"
+#     mime_type = "image/jpeg"
 
-    path = askopenfilename(title='Seleccione un archivo')
-    path_split = path.split("/")
-    file_name = path_split[-1]
+#     path = askopenfilename(title='Seleccione un archivo')
+#     path_split = path.split("/")
+#     file_name = path_split[-1]
 
-    file_metadata = {
-        "name" : file_name,
-        "parents" : [folder_id]
-    }
+#     if flag_root == False:
+#         file_metadata = {
+#             "name" : file_name,
+#             "parents" : [folder_id]
+#         }
+#     else:
+#         file_metadata = {
+#             "name" : file_name,
+#         }
 
-    media = MediaFileUpload(path, mimetype=mime_type)
+#     media = MediaFileUpload(path, mimetype=mime_type)
 
-    SERVICE.files().create(
-        body = file_metadata,
-        media_body = media,
-        fields = "id"
-    ).execute()
+#     SERVICE.files().create(
+#         body = file_metadata,
+#         media_body = media,
+#         fields = "id"
+#     ).execute()
+
+#     print("El archivo se subió Exitosamente")
+
 
 
 def descargar_archivos() -> None:
@@ -189,4 +198,4 @@ def descargar_archivos() -> None:
     
     
 
-subir_archivos()
+subir_archivos(SERVICE)
