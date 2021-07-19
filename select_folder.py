@@ -8,8 +8,8 @@ def select_folder(service) -> tuple:
         for key,value in element.items():
             if key == "name":
                 print (f"-{value}")
-    print("Recuerde que si desea poner el archivo en el direcotrio raíz, no complete el siguiente campo")
-    name = input("Porfavor copie y pegue el nombre de la carpeta en la que desea poner el archivo.")
+    print("Recuerde que si desea el direcotrio raíz, no complete el siguiente campo")
+    name = input("Porfavor copie y pegue el nombre de la carpeta que desea.")
 
     for element in files:
         for key,value in element.items():
