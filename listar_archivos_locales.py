@@ -1,21 +1,5 @@
 import os
 
-def mostrar_opciones()->None:
-    print(
-    '''
-    1. Listar archivos remotos
-    2. Listar archivos en drive
-
-    '''  )
-
-def validar_opcion_menu(opcion_menu: str)->int:
-    while opcion_menu != "1" and opcion_menu != "2":
-        mostrar_opciones()
-        print("Ingreso invalido, vuelva a intentarlo")
-        opcion_menu = input("Ingrese una opcion: ")
-
-    return opcion_menu
-
 def mostrar_archivos_local(path:str)->None:
     print("\nCarpeta actual: {}".format(path))
     print("Lista de archivos que se encuentran en su carpeta actual:\n")
@@ -115,9 +99,5 @@ def navegar_entre_carpetas(path:str)->None:
 
 def listar_archivos_locales()->None:
     path = os.getcwd() #Carpeta actual
-    mostrar_opciones()
-    opcion_menu = validar_opcion_menu(input("Ingrese una opcion: ")) #el return de la funcion es STR
     listar_todo_local(path)
     navegar_entre_carpetas(path)
-
-listar_archivos_locales()

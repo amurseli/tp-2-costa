@@ -125,5 +125,3 @@ def listar_archivos_remotos()->None:
                 continuar = False 
                 #No solo no hay subcarpetas, sino que se encuentra en el el drive inicial, no
                 #puede hacer nada
-                
-listar_archivos_remotos()
