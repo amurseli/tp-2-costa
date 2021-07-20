@@ -16,7 +16,7 @@ def subir_archivos(service) -> None:
 
     mime_type, encoding = mimetypes.guess_type(path, strict=True) # guess_type() utiliza el path que le de y te devuelve su mimetype y su encoding
     #El parámetro strict limita los mimetypes solo a los oficiales
-                                                                 
+
     if flag_root == False:
         file_metadata = {
             "name" : file_name,
@@ -29,11 +29,13 @@ def subir_archivos(service) -> None:
 
     media = MediaFileUpload(path, mimetype=mime_type)
 
-    service.files().create(
-        body = file_metadata,
-        media_body = media,
-        fields = "id"
-    ).execute()
+    try:
+        service.files().create(
+            body = file_metadata,
+            media_body = media,
+            fields = "id"
+        ).execute()
 
-    print("El archivo se subió Exitosamente")
-
+        print("\nEl archivo se subió Exitosamente")
+    except TypeError:
+        print("\nOcurrió un error al subir el archivo, puede que el mismo tenga la extensión cambiada.")
