@@ -2,10 +2,10 @@ import io
 from tkinter import Tk
 from tkinter.filedialog import askdirectory
 from googleapiclient.http import MediaIoBaseDownload
-from select_folder import select_folder
+from seleccionar_carpeta import seleccionar_carpeta
 
 def descargar_archivos(service) -> None:
-    folder_id, flag_root = select_folder(service)
+    folder_id, flag_root = seleccionar_carpeta(service)
     if flag_root == False:
         query = f"parents = '{folder_id}'"
         files = service.files().list(fields='files(name, id, mimeType)',q=query).execute().get('files')

@@ -1,5 +1,5 @@
 
-def select_folder(service) -> tuple:
+def seleccionar_carpeta(service) -> tuple:
     folder_id = " "
     flag_root = True
     files = service.files().list(fields='files(name, id, mimeType)',q="mimeType='application/vnd.google-apps.folder'").execute().get('files')
