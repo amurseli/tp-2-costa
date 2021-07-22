@@ -37,5 +37,5 @@ def subir_archivos(service) -> None:
         ).execute()
 
         print("\nEl archivo se subió Exitosamente")
-    except TypeError:
+    except TypeError: #Esta excepcion ocurre si el mime_type.guess_type falla
         print("\nOcurrió un error al subir el archivo, puede que el mismo tenga la extensión cambiada.")
