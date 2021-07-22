@@ -2,11 +2,11 @@ from crear_archivos import crear_archivo_nuevo
 from descargar_archivo import descargar_archivos
 from subir_archivo import subir_archivos
 from seleccionar_carpeta import seleccionar_carpeta
-from sistema_carpeta import s, sistema_carpeta
 from service_drive import obtener_servicio_drive
 from service_gmail import obtener_servicio_gmail
 from syncronizar import syncronizar
 from listar_archivos import listar_archivos
+#from sistema_carpeta import sistema_carpeta
 
 SERVICE_DRIVE = obtener_servicio_drive()
 SERVICE_GMAIL = obtener_servicio_gmail()
@@ -47,9 +47,11 @@ def main() -> None:
         elif opcion == 5:
             syncronizar()
         elif opcion == 6:
-            sistema_carpeta()
+            pass
+            #sistema_carpeta()
         elif opcion == 7:
             pass
+            #sistema_carpeta()
         elif opcion == 8:
             continuar = False 
 main()
