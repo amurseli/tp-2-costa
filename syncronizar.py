@@ -1,5 +1,5 @@
 from os import remove, getcwd, walk
-from os.path import abspath
+from os.path import abspath, getmtime
 from io import BytesIO
 from shutil import move
 from service_drive import obtener_servicio
@@ -18,7 +18,7 @@ def todos_archivos_locales(path:str)->tuple:
     for root, dirs, files in walk(path):
         for archivo in files:
             try:
-                fecha_unix = path.getmtime(archivo)
+                fecha_unix = getmtime(archivo)
                 fecha_normalizada = datetime.fromtimestamp(fecha_unix)
                 mtime_locales[archivo] = type(fecha_normalizada)
             except:
