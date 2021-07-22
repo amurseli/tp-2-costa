@@ -7,7 +7,7 @@ from googleapiclient.http import MediaFileUpload
 from seleccionar_carpeta import seleccionar_carpeta
 
 def subir_archivos(service) -> None:
-    folder_id, flag_root = select_folder(service)
+    folder_id, flag_root = seleccionar_carpeta(service)
 
     print("Seleccione un archivo en la ventan que se acaba de abrir. Es posible que no se haya abierto en primer plano.")
     path = askopenfilename(title='Seleccione un archivo') 
