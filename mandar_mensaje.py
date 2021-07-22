@@ -9,14 +9,14 @@ import os
 import base64
 
 
-def enviar_mensaje(destinatario:str, asunto:str, mensaje:str)->None:
+def enviar_mensaje(service, destinatario:str, asunto:str, mensaje:str)->None:
     '''
-    Explicaion de lo que deben contener las variables:
-     destinatario = el mail al que se le quiere mandar un mensaje
-     asunto = va a ser el asunto xd
-     mensaje = el body del mensaje
+    :param service: = funcion del servicio de google API  
+    :param destinatario: = el mail al que se le quiere mandar un mensaje
+    :param asunto: = va a ser el asunto xd
+    :param mensaje: = el body del mensaje
     '''
-    service = obtener_servicio_gmail()
+    #service = obtener_servicio_gmail()
 
     email_msg = mensaje    
     mimeMessage = MIMEMultipart()
@@ -27,22 +27,22 @@ def enviar_mensaje(destinatario:str, asunto:str, mensaje:str)->None:
     raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
 
     try:
-        enviar = service.users().messages().send(userId='Yo', body={'raw': raw_string}).execute()
+        enviar = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
         print(enviar)
     except Exception as e:
         print(f"Ocurrio un error del tipo {e}\n por no seguir los pasos dictados.")
 
-def enviar_mensaje_con_adjuntos(destinatario:str,asunto:str,mensaje:str,attachment:list)->None:
+def enviar_mensaje_con_adjuntos(service, destinatario:str,asunto:str,mensaje:str,attachment:list)->None:
     '''
-    Explicaion de lo que deben contener las variables:
-     destinatario = el mail al que se le quiere mandar un mensaje,
-     asunto = va a ser el asunto xd,
-     mensaje = el body del mensaje,
-     attachment = va a ser una lista con los archivos .csv  # no se que onda pero no los manda, no se si sera que esten vacios pero otras coasas si manda
+     :param service: = funcion del servicio de google API  Gmail
+     :param destinatario: = el mail al que se le quiere mandar un mensaje,
+     :param asunto: = va a ser el asunto xd,
+     :param mensaje: = el body del mensaje,
+     :param attachment: = va a ser una lista con los archivos .csv  # no se que onda pero no los manda, no se si sera que esten vacios pero otras coasas si manda
                                                             # en la casilla de mensajes enviados si aparecen
     '''
 
-    service = obtener_servicio_gmail()
+    #service = obtener_servicio_gmail()
     archivos_adjuntos = attachment
     email_msg = mensaje
     mimeMessage = MIMEMultipart()
@@ -70,11 +70,7 @@ def enviar_mensaje_con_adjuntos(destinatario:str,asunto:str,mensaje:str,attachme
             print(f"Ocurrio un error del tipo {e}\n por no seguir los pasos dictados.")
 
     raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
-    enviar = service.users().messages().send(userId='Yo', body={'raw': raw_string}).execute()
+    enviar = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
     print(enviar)
 
 
-destinatario = 'itot...@...'
-asunto = 'PRUEBA'
-mensaje= 'HOLA'
-enviar_mensaje(destinatario,asunto, mensaje)
