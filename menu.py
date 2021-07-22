@@ -31,7 +31,7 @@ def main() -> None:
             3) Subir un archivo.
             4) Descargar un archivo.
             5) Sincronizar.
-            6) Generar carpetas de una evaluacion.
+            6) Generar carpetas de una evaluacion.
             7) Actualizar entregas de alumnos vía mail.
             8) Salir. 
             """)
