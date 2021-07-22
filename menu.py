@@ -48,19 +48,26 @@ def main() -> None:
         elif opcion == 5:
             syncronizar()
         elif opcion == 6:
-            print("Mail al que se le quiere enviar:")
+            service = SERVICE_GMAIL
+            print("Mail eal que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
             asunto = "DATOS"
             mensaje = "    "
+<<<<<<< HEAD
             enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje) 
+=======
+            enviar_mensaje(service,destinatario,asunto,mensaje)
+            
+>>>>>>> 473103f1d8843e8e3509e21cf73cbf4ee44d6f6e
             #sistema_carpeta()
         elif opcion == 7:
-            print("Mail al que se le quiere enviar:")
+            service = SERVICE_GMAIL
+            print("Mail eal que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
             asunto = "TENES ARCHIVOS"
             mensaje = "Se te enviaron archivos para que lo subas a tu carpeta drive"
             attachment = ['alumnos_docnetes.zip']
-            enviar_mensaje_con_adjuntos(SERVICE_GMAIL, destinatario, asunto, mensaje, attachment)
+            enviar_mensaje_con_adjuntos(service, destinatario, asunto, mensaje, attachment)
                        
             #parte de drive
         elif opcion == 8:
