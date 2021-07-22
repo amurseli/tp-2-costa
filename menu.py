@@ -3,12 +3,12 @@ from descargar_archivo import descargar_archivos
 from subir_archivo import subir_archivos
 from seleccionar_carpeta import seleccionar_carpeta
 from sistema_carpeta import s, sistema_carpeta
-from service_drive import obtener_servicio_drive
+from service_drive import service
 from service_gmail import obtener_servicio_gmail
 from syncronizar import syncronizar
 from todos_archivos_locales import todos_archivos_locales
 
-SERVICE_DRIVE = obtener_servicio_drive()
+SERVICE_DRIVE = service
 SERVICE_GMAIL = obtener_servicio_gmail()
 
 def validar_opcion(minimo: int, maximo: int) -> int:
