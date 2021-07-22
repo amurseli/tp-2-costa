@@ -47,7 +47,7 @@ def main() -> None:
         elif opcion == 5:
             syncronizar()
         elif opcion == 6:
-            print("Mail al que se le quiere enviar:")
+            print("Mail eal que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
             asunto = "DATOS"
             mensaje = "    "
@@ -55,7 +55,7 @@ def main() -> None:
  
             #sistema_carpeta()
         elif opcion == 7:
-            print("Mail al que se le quiere enviar:")
+            print("Mail eal que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
             asunto = "TENES ARCHIVOS"
             mensaje = "Se te enviaron archivos para que lo subas a tu carpeta drive"
