@@ -73,9 +73,4 @@ def obtener_servicio_drive() -> Resource:
     """
     return build(API_NAME, API_VERSION, credentials=generar_credenciales())
 
-<<<<<<< HEAD
-obtener_servicio_drive()
-
-=======
-service = obtener_servicio()
->>>>>>> agustin
+service = obtener_servicio_drive()
