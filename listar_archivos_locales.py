@@ -1,19 +1,20 @@
-import os
+from os import listdir, getcwd
+from os.path import join, isfile, isdir, split, dirname
 
 def mostrar_archivos_local(path:str)->None:
     print("\nCarpeta actual: {}".format(path))
     print("Lista de archivos que se encuentran en su carpeta actual:\n")
-    for archivo in os.listdir(path):
-        nuevo_path = os.path.join(path, archivo)
-        if os.path.isfile(nuevo_path):
+    for archivo in listdir(path):
+        nuevo_path = join(path, archivo)
+        if isfile(nuevo_path):
             print(archivo)
 
 def mostrar_carpetas_local(path:str)->None:
     print("\nCarpeta actual: {}".format(path))
     print("Lista de sub-carpetas que se encuentran en su carpeta actual:\n")
-    for carpeta in os.listdir(path):
-        nuevo_path = os.path.join(path, carpeta)
-        if os.path.isdir(nuevo_path):
+    for carpeta in listdir(path):
+        nuevo_path = join(path, carpeta)
+        if isdir(nuevo_path):
             print(carpeta)
 
 def listar_todo_local(path:str)->None:
@@ -21,9 +22,9 @@ def listar_todo_local(path:str)->None:
     mostrar_carpetas_local(path)
 
 def modifi_sub_carpetas(sub_carpetas:list, path:str)->None:
-    for carpeta in os.listdir(path):
-        nuevo_path = os.path.join(path, carpeta)
-        if os.path.isdir(nuevo_path):
+    for carpeta in listdir(path):
+        nuevo_path = join(path, carpeta)
+        if isdir(nuevo_path):
             sub_carpetas.append(carpeta)
 
 def checkear_subcarpetas(path:str)->list:
@@ -57,14 +58,14 @@ def opcion_navegar(path:str, sub_carpetas:list)->str:
     opcion_navegar = validar_opcion_navegar(input("Desea acceder a alguna de las carpetas o desea volver para atras?: "))
     if opcion_navegar.lower() == "acceder":
         carpeta_acceder = validar_carpeta_existente(sub_carpetas, input("\nIngrese la carpeta a la que quiere acceder: "))
-        path = os.path.join(path, carpeta_acceder) #Se va modificando la var path que pase al principio
+        path = join(path, carpeta_acceder) #Se va modificando la var path que pase al principio
         listar_todo_local(path)
 
     else:
         #PD: se puede usar os.path.split(path) para obtener una tupla (path, carpeta)
         #y mostrarle la carpeta de la que acaba de salir, pero ya en los prints le muestro donde
         #esta parado, asi que creo que no hace falta
-        path = os.path.dirname(path)
+        path = dirname(path)
         listar_todo_local(path)
 
     return path
@@ -91,13 +92,13 @@ def navegar_entre_carpetas(path:str)->None:
         else:
             opcion_volver = validar_ingreso_si_no(input("\nDesea volver para atras?: "))
             if opcion_volver == "si":
-                path = os.path.dirname(path)
+                path = dirname(path)
                 listar_todo_local(path)
 
             else:
                 continuar = False 
 
 def listar_archivos_locales()->None:
-    path = os.getcwd() #Carpeta actual
+    path = getcwd() #Carpeta actual
     listar_todo_local(path)
     navegar_entre_carpetas(path)
