@@ -4,6 +4,7 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build, Resource
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from crear_archivos import crear_archivo_nuevo
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
@@ -70,4 +71,3 @@ def obtener_servicio() -> Resource:
     """
     return build(API_NAME, API_VERSION, credentials=generar_credenciales())
 
-obtener_servicio()

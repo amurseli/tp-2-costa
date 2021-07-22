@@ -38,14 +38,14 @@ def descargar_archivos(service) -> None:
     path = askdirectory(title='Seleccione una carpeta') 
 
     try:
-        # Download the data in chunks
+        # Descarga la info "Chunk por Chunk"
         while not done:
             status, done = downloader.next_chunk()
 
         fh.seek(0)
 
         with open(f"{path}\\{file_name}", 'wb') as f:
-            f.write(fh.read())
+            f.write(fh.read())                       #Reescribe el archivo creado en al linea anterior con la ingormación en fh
 
         print("Archivo Descargado con éxito!")
     except :
@@ -54,4 +54,3 @@ def descargar_archivos(service) -> None:
         print("Es probable que estes intentando descargar un archivo no descargable.")
         print("Algunos de los archivos no descargables son los que fueron editados por las aplicaciones de drive como 'Google Docs' o 'Goggle Sheets'")
         return False
-    
