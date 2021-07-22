@@ -10,6 +10,10 @@ def descargar_archivos(service) -> None:
     if flag_root == False:
         query = f"parents = '{folder_id}'"
         files = service.files().list(fields='files(name, id, mimeType)',q=query).execute().get('files')
+        while bool(files) == False:
+            folder_id, flag_root = seleccionar_carpeta(service, True)
+            query = f"parents = '{folder_id}'"
+            files = service.files().list(fields='files(name, id, mimeType)',q=query).execute().get('files')
         for element in files:
             for key,value in element.items():
                 if key == "name":

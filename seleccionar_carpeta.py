@@ -1,5 +1,5 @@
 
-def seleccionar_carpeta(service) -> tuple:
+def seleccionar_carpeta(service, flag_empty = False) -> tuple:
     folder_id = " "
     flag_root = True
     files = service.files().list(fields='files(name, id, mimeType)',q="mimeType='application/vnd.google-apps.folder'").execute().get('files')
@@ -8,6 +8,8 @@ def seleccionar_carpeta(service) -> tuple:
         for key,value in element.items():
             if key == "name":
                 print (f"-{value}")
+    if flag_empty == True:
+        print("Se seleccionó un directorio Vacío, Intentelo denuevo")
     print("Recuerde que si desea el direcotrio raíz, no complete el siguiente campo")
     name = input("Porfavor copie y pegue el nombre de la carpeta que desea.")
 
