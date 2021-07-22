@@ -67,4 +67,5 @@ def obtener_servicio_gmail() -> Resource:
     """
     return build(API_NAME, API_VERSION, credentials=generar_credenciales())
 
+
 obtener_servicio_gmail()

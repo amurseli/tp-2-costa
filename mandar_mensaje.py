@@ -11,11 +11,10 @@ import base64
 
 def enviar_mensaje(service, destinatario:str, asunto:str, mensaje:str)->None:
     '''
-    Explicaion de lo que deben contener las variables:
-     service = funcion del servicio de google API  
-     destinatario = el mail al que se le quiere mandar un mensaje
-     asunto = va a ser el asunto xd
-     mensaje = el body del mensaje
+    :param service: = funcion del servicio de google API  
+    :param destinatario: = el mail al que se le quiere mandar un mensaje
+    :param asunto: = va a ser el asunto xd
+    :param mensaje: = el body del mensaje
     '''
     #service = obtener_servicio_gmail()
 
@@ -28,19 +27,18 @@ def enviar_mensaje(service, destinatario:str, asunto:str, mensaje:str)->None:
     raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
 
     try:
-        enviar = service.users().messages().send(userId='Yo', body={'raw': raw_string}).execute()
+        enviar = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
         print(enviar)
     except Exception as e:
         print(f"Ocurrio un error del tipo {e}\n por no seguir los pasos dictados.")
 
 def enviar_mensaje_con_adjuntos(service, destinatario:str,asunto:str,mensaje:str,attachment:list)->None:
     '''
-    Explicaion de lo que deben contener las variables:
-     service = funcion del servicio de google API  Gmail
-     destinatario = el mail al que se le quiere mandar un mensaje,
-     asunto = va a ser el asunto xd,
-     mensaje = el body del mensaje,
-     attachment = va a ser una lista con los archivos .csv  # no se que onda pero no los manda, no se si sera que esten vacios pero otras coasas si manda
+     :param service: = funcion del servicio de google API  Gmail
+     :param destinatario: = el mail al que se le quiere mandar un mensaje,
+     :param asunto: = va a ser el asunto xd,
+     :param mensaje: = el body del mensaje,
+     :param attachment: = va a ser una lista con los archivos .csv  # no se que onda pero no los manda, no se si sera que esten vacios pero otras coasas si manda
                                                             # en la casilla de mensajes enviados si aparecen
     '''
 
@@ -72,7 +70,7 @@ def enviar_mensaje_con_adjuntos(service, destinatario:str,asunto:str,mensaje:str
             print(f"Ocurrio un error del tipo {e}\n por no seguir los pasos dictados.")
 
     raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
-    enviar = service.users().messages().send(userId='Yo', body={'raw': raw_string}).execute()
+    enviar = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
     print(enviar)
 
 
