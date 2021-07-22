@@ -1,4 +1,4 @@
-from service_drive import ARCHIVO_SECRET_CLIENT, obtener_servicio
+from service_drive import ARCHIVO_SECRET_CLIENT, obtener_servicio_drive
 from json import dumps, loads
 
 def listar_carpetas(servicio:str, id_carpeta_acceder:str)->None:
@@ -93,7 +93,7 @@ def opcion_navegar_subcarpetas(servicio:str, carpetas_validas:dict, ids_carpetas
             listar_todo(servicio, id_carpeta_actual)
 
 def listar_archivos_remotos()->None:
-    servicio = obtener_servicio() #Solo esto va afuera y en main, voy a pasarle siempre esto
+    servicio = obtener_servicio_drive() #Solo esto va afuera y en main, voy a pasarle siempre esto
     driveid = servicio.files().get(fileId='root').execute().get('id')
     listar_todo(servicio, driveid)
     ids_carpetas_recorridas = []
