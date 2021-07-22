@@ -1,4 +1,16 @@
-<<<<<<< HEAD
+from crear_archivos import crear_archivo_nuevo
+from descargar_archivo import descargar_archivos
+from subir_archivo import subir_archivos
+from seleccionar_carpeta import seleccionar_carpeta
+from sistema_carpeta import s, sistema_carpeta
+from service_drive import obtener_servicio_drive
+from service_gmail import obtener_servicio_gmail
+from syncronizar import syncronizar
+from todos_archivos_locales import todos_archivos_locales
+
+SERVICE_DRIVE = obtener_servicio_drive()
+SERVICE_GMAIL = obtener_servicio_gmail()
+
 def validar_opcion(minimo: int, maximo: int) -> int:
     opcion = int(input("Ingrese un numero de opcion: "))
     while not opcion in range(minimo, maximo + 1):
@@ -26,59 +38,19 @@ def main() -> None:
         
         opcion = validar_opcion(1, 8)
         if opcion == 1:
-            pass
+            todos_archivos_locales()
         elif opcion == 2:
-            pass
+            crear_archivo_nuevo(SERVICE_DRIVE)
         elif opcion == 3:
-            pass
+            subir_archivos(SERVICE_DRIVE)
         elif opcion == 4:
-            pass
+            descargar_archivos(SERVICE_DRIVE)
         elif opcion == 5:
-            pass    
+            syncronizar()
         elif opcion == 6:
-            pass
+            sistema_carpeta()
         elif opcion == 7:
             pass
         elif opcion == 8:
             continuar = False 
-=======
-def menu()->None:
-
-    continuar = True
-    while continuar:
-        print("Opciones")
-        print("1. Listar archivos de la carpeta actual")
-        print("2. Crear un archivo")
-        print("3. Subir un archivo")
-        print("4. Descargar un archivo")
-        print("5. Sincronizar carpetas")
-        print("6. Generar carpetas de una evaluacion")
-        print("7. Actualizar entregas de alumnos v´ıa mail.")
-        print("8. Salir")
-
-        opcion = input("\nIngrese una opcion: ")
-        while not opcion.isnumeric() and not int(opcion) > 8:
-            print("Error! ingrese una respuesta valida")
-            opcion = input("Error! ingrese una respuesta valida")
-
-        if opcion == "1":
-            pass
-        elif opcion == '2':
-            pass
-        elif opcion == '3':
-            pass
-        elif opcion == '4':
-            pass
-        elif opcion == '5':
-            pass
-        elif opcion == '6':
-            pass
-        elif opcion == '7':
-            pass
-        elif opcion == '8':
-            continuar = False
-
-def main()->None:
-    menu()
->>>>>>> ignacio
 main()
