@@ -1,4 +1,3 @@
-from DriveAPI import API_NAME, API_VERSION
 import os
 
 from googleapiclient.discovery import Resource, build

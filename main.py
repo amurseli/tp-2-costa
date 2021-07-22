@@ -2,8 +2,8 @@ from logging import StreamHandler
 from google.oauth2 import service_account        #  Estos se instalaron solos no se que onda
 from googleapiclient.discovery_cache import base #  """"""""""""""""""""""""""""""""""""
 from googleapiclient.http import HttpRequest
-from six import assertCountEqual     #  """"""""""""""""""""""""""""""""""""
-from DriveAPI import obtener_servicio_drive
+from six import assertCountEqual                  #  """"""""""""""""""""""""""""""""""""
+#from DriveAPI import obtener_servicio_drive
 from GmailAPI import obtener_servicio_gmail
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -14,7 +14,7 @@ import base64
 import os.path
 
 SERVICE_GMAIL = obtener_servicio_gmail()
-SERVICE_DRIVE = obtener_servicio_drive()
+#SERVICE_DRIVE = obtener_servicio_drive()
 
 FILES = ['\alumnos.csv','\docentes.csv','\alumnos-docentes.csv']
 #mensaje email
@@ -56,8 +56,8 @@ def crear_mensaje(sender:str, to :str, asunto:str, mensaje_texto:str, files:None
 def main():
     service = SERVICE_GMAIL
     user = "Ignacio"
-    sender = "itotino@fi..."
-    to = "ignaciotomas@...."
+    to = "itotino@fi.uba.ar"
+    sender = "ignaciotomas@gmail.com"
     asunto = "TEST"
     mensaje_texto = "Esto es una prueba"
     files = FILES
