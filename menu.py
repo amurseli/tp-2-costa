@@ -48,7 +48,12 @@ def main() -> None:
         elif opcion == 5:
             syncronizar()
         elif opcion == 6:
+<<<<<<< HEAD
             print("Mail al que se le quiere enviar: ej:'example@algo.com'")
+=======
+            service = SERVICE_GMAIL
+            print("Mail al que se le quiere enviar: ej: example@algo.com ")
+>>>>>>> 47b96f0f2b6e05d9550ab811049ff05a4c0cfca1
             destinatario = input()
             asunto = "DATOS"
             mensaje = "A continuacion se creara en local evaluacion/docentes/alumnos y tambien una carpeta remota en drive y elija la opcion 4 para crear en remoto"
@@ -56,7 +61,12 @@ def main() -> None:
             sistema_carpeta()
             
         elif opcion == 7:
+<<<<<<< HEAD
             print("Mail eal que se le quiere enviar: ej:'example@algo.com'")
+=======
+            service = SERVICE_GMAIL
+            print("Mail eal que se le quiere enviar: ej: example@algo.com")
+>>>>>>> 47b96f0f2b6e05d9550ab811049ff05a4c0cfca1
             destinatario = input()
             asunto = "TENES ARCHIVOS"
             mensaje = "Se te enviaron archivos para que lo subas a tu carpeta drive"
