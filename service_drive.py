@@ -63,11 +63,13 @@ def generar_credenciales() -> Credentials:
     return credencial
 
 
-def obtener_servicio() -> Resource:
+def obtener_servicio_drive() -> Resource:
     """
     Creador de la conexion a la api drive.
 
     :return: service
     """
     return build(API_NAME, API_VERSION, credentials=generar_credenciales())
+
+obtener_servicio_drive()
 
