@@ -1,5 +1,5 @@
 import email
-from GmailAPI import obtener_servicio_gmail
+from service_gmail import obtener_servicio_gmail
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
