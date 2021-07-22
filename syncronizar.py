@@ -2,7 +2,7 @@ from os import remove, getcwd, walk
 from os.path import abspath, getmtime
 from io import BytesIO
 from shutil import move
-from service_drive import obtener_servicio
+from service_drive import obtener_servicio_drive
 from datetime import datetime
 from mimetypes import guess_extension, guess_type
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
@@ -104,7 +104,7 @@ def syncronizar()->None:
     #PD: omiti la palabra archivos en todas las varaibles pq sino quedaban demasiado largos los 
     #nombres, tambien mtime = modifiedtime
     path = getcwd()
-    servicio = obtener_servicio()
+    servicio = obtener_servicio_drive()
     archivos_locales = todos_archivos_locales(path)
     paths_locales = archivos_locales[0]
     mtime_locales = archivos_locales[1]
