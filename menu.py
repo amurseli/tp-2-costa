@@ -7,7 +7,7 @@ from service_gmail import obtener_servicio_gmail
 from syncronizar import syncronizar
 from listar_archivos import listar_archivos
 from mandar_mensaje import enviar_mensaje, enviar_mensaje_con_adjuntos
-#from sistema_carpeta import sistema_carpeta
+from sistema_carpeta import sistema_carpeta
 
 SERVICE_DRIVE = obtener_servicio_drive()
 SERVICE_GMAIL = obtener_servicio_gmail()
@@ -48,22 +48,20 @@ def main() -> None:
         elif opcion == 5:
             syncronizar()
         elif opcion == 6:
-            service = SERVICE_GMAIL
             print("Mail al que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
             asunto = "DATOS"
-            mensaje = "    "
-            enviar_mensaje(service,destinatario,asunto,mensaje)
+            mensaje = "A continuacion se creara en local evaluacion/docentes/alumnos y tambien una carpeta remota en drive y elija la opcion 4 para crear en remoto"
+            enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje)
+            sistema_carpeta()
             
-            #sistema_carpeta()
         elif opcion == 7:
-            service = SERVICE_GMAIL
             print("Mail eal que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
             asunto = "TENES ARCHIVOS"
             mensaje = "Se te enviaron archivos para que lo subas a tu carpeta drive"
             attachment = ['alumnos_docentes.zip']
-            enviar_mensaje_con_adjuntos(service, destinatario, asunto, mensaje, attachment)
+            enviar_mensaje_con_adjuntos(SERVICE_GMAIL, destinatario, asunto, mensaje, attachment)
                        
             #parte de drive
         elif opcion == 8:
