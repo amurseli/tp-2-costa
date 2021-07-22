@@ -6,6 +6,7 @@ from service_drive import obtener_servicio_drive
 from service_gmail import obtener_servicio_gmail
 from syncronizar import syncronizar
 from listar_archivos import listar_archivos
+from mandar_mensaje import enviar_mensaje, enviar_mensaje_con_adjuntos
 #from sistema_carpeta import sistema_carpeta
 
 SERVICE_DRIVE = obtener_servicio_drive()
@@ -51,8 +52,7 @@ def main() -> None:
             destinatario = input()
             asunto = "DATOS"
             mensaje = "    "
-            enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje)
- 
+            enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje) 
             #sistema_carpeta()
         elif opcion == 7:
             print("Mail al que se le quiere enviar:")
