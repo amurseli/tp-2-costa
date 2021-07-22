@@ -71,6 +71,4 @@ def obtener_servicio_drive() -> Resource:
 
     :return: service
     """
-    return build(API_NAME, API_VERSION, credentials=generar_credenciales())
-
-service = obtener_servicio_drive()
+    return build(API_NAME, API_VERSION, credentials = generar_credenciales())
