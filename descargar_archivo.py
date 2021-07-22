@@ -5,6 +5,7 @@ from googleapiclient.http import MediaIoBaseDownload
 from seleccionar_carpeta import seleccionar_carpeta
 
 def descargar_archivos(service) -> None:
+    file_id = ""
     folder_id, flag_root = seleccionar_carpeta(service)
     if flag_root == False:
         query = f"parents = '{folder_id}'"
@@ -20,13 +21,14 @@ def descargar_archivos(service) -> None:
                 if key == "name":
                     print (f"-{value}")
 
-    file_name = input("Porfavor copie y pegue el nombre del archivo a descargar.")
+    while file_id == "":
+        file_name = input("Porfavor copie y pegue el nombre del archivo a descargar.")  
 
-    for element in files:
-        for key,value in element.items():
-            if element[key] == file_name:
-               target_file = element
-               file_id = target_file["id"] 
+        for element in files:
+            for key,value in element.items():
+                if element[key] == file_name:
+                    target_file = element
+                    file_id = target_file["id"] 
 
     request = service.files().get_media(fileId=file_id)
     fh = io.BytesIO()
