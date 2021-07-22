@@ -4,8 +4,8 @@ from service_gmail import obtener_servicio_gmail
 from mandar_mensaje import enviar_mensaje
 from mandar_mensaje import enviar_mensaje_con_adjuntos
 
-SERVICE_DRIVE = obtener_servicio_drive
-SERVICE_GMAIL = obtener_servicio_gmail
+SERVICE_DRIVE = obtener_servicio_drive()
+SERVICE_GMAIL = obtener_servicio_gmail()
 
 destinatario = input("Ingrese el mail al que desea enviarlo: ")
 asunto = 'datos'
