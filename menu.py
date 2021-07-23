@@ -54,6 +54,7 @@ def main() -> None:
             mensaje = "A continuacion se creara en local evaluacion/docentes/alumnos y tambien una carpeta remota en drive y elija la opcion 4 para crear en remoto"
             enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje)
             sistema_carpeta()
+            crear_archivo_nuevo(SERVICE_DRIVE)
             
         elif opcion == 7:
             print("Mail al que se le quiere enviar: ej:'example@algo.com'")
