@@ -1,5 +1,5 @@
 from os import remove, getcwd, walk
-from os.path import abspath, getmtime
+from os.path import abspath, getmtime, split
 from io import BytesIO
 from shutil import move
 from service_drive import obtener_servicio
@@ -18,17 +18,18 @@ def todos_archivos_locales(path:str)->tuple:
     for root, dirs, files in walk(path):
         for archivo in files:
             try:
-                fecha_unix = getmtime(archivo)
+                fecha_unix = getmtime(root)
                 fecha_normalizada = datetime.fromtimestamp(fecha_unix)
-                mtime_locales[archivo] = type(fecha_normalizada)
+                mtime_locales[archivo] = fecha_normalizada
             except:
                 pass
             #Hay archivos que son propios de git y estan ocultos, al parecer no tienen fecha de modificacion
             #y al hacer esto me tira un error, por eso dejo esto asi. Lo de abajo es para que no 
             #haya diferencias entre los diccionarios
+            #PD: Hablamos de sacarlo en el meet, pero fijandome el problema no era el try except
             if archivo in mtime_locales.keys():
-               paths_locales[archivo] = abspath(archivo)
-
+                paths_locales[archivo] = split(root)[0] #es el path del directorio del archivo
+        
     return paths_locales, mtime_locales
 
 def todos_archivos_remotos(servicio:tuple)->dict:
@@ -50,7 +51,7 @@ def todos_archivos_remotos(servicio:tuple)->dict:
             #parents, el drive en el que testeo todo tiene muchos archivos compartidos, hago esto para que no
             #salte
             mtime_remotos[nombre_archivo] = archivo['modifiedTime']
-
+        
     return datos_remotos, mtime_remotos  
 
 def obtener_mimetype(nombre_archivo:str)->str:
@@ -71,12 +72,17 @@ def borrar_archivo_remoto(servicio:tuple, datos_remotos: dict, archivo:str)->Non
 def bajar_archivo(servicio:tuple, datos_remotos:dict, archivo:str)->None:
     request = servicio.files().get_media(fileId=datos_remotos[archivo][ID])
     fh = BytesIO() 
+    MediaIoBaseDownload(fd=fh, request=request)
     #No entiendo que hace esto, en la documentacion de la api no se explica bien, y
     #googleando no termino de entender que es lo que realmente hace
-    MediaIoBaseDownload(fd=fh, request=request)
+    fh.seek(0)
+    with open(abspath(archivo), 'wb') as f:
+        f.write(fh.read())
+    #Esto esta hecho a ultimo momento con lo de agustin, no termino de enetender a donde baja 
+    #el archivo, el resto de la logica de sincronizar deberia estar bien
 
 def mover_archivo(archivo:str, paths_locales:dict)->None:
-    path_actual = abspath(archivo)
+    path_actual = abspath(archivo) #Lo deberia bajar a mi carpeta actual
     path_deseado = paths_locales[archivo] #es la ubicacion del archivo borrado
     move(path_actual, path_deseado)
 
@@ -112,4 +118,4 @@ def syncronizar()->None:
     datos_remotos = archivos_remotos[0]
     mtime_remotos = archivos_remotos[1]
 
-    actualizar_archivos_comunes(mtime_locales, mtime_remotos, datos_remotos, paths_locales, servicio, path)
+    actualizar_archivos_comunes(mtime_locales, mtime_remotos, datos_remotos, paths_locales, servicio, path)  
