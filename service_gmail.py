@@ -14,14 +14,13 @@ SCOPES = [
 # Archivo generado para la API
 ARCHIVO_SECRET_CLIENT = 'client_secret.json'
 
+PATH_TOKEN = 'token_gmail.json'
 
 def cargar_credenciales() -> Credentials:
     credencial = None
-
-    if os.path.exists('token.json'):
-        with open('token.json', 'r'):
-            credencial = Credentials.from_authorized_user_file('token.json', SCOPES)
-
+    if os.path.exists(PATH_TOKEN):
+        with open(PATH_TOKEN, 'r'):
+            credencial = Credentials.from_authorized_user_file(PATH_TOKEN, SCOPES)
     return credencial
 
 
