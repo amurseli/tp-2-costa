@@ -294,7 +294,8 @@ def todos_archivos_remotos(servicio:tuple)->dict:
     pagina = None
     seguir_procesando = True
     while seguir_procesando:
-        response = servicio.files().list(fields='files(name, id, modifiedTime, mimeType, parents)', 
+        response = servicio.files().list(fields='files(name, id, modifiedTime, mimeType, parents)',
+                                        q="mimeType!='application/vnd.google-apps.folder'",
                                         pageSize=1000, 
                                         supportsAllDrives=True,
                                         pageToken=pagina,
@@ -313,6 +314,7 @@ def todos_archivos_remotos(servicio:tuple)->dict:
                datos_remotos[nombre_archivo] = [archivo['id'], archivo['mimeType'], archivo['name'], archivo['parents'][0]]
             except:
                 pass
+            
             mtime_remotos[nombre_archivo] = archivo['modifiedTime']
         
     return datos_remotos, mtime_remotos  
