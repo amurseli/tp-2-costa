@@ -62,29 +62,18 @@ def opcion_navegar(path:str, sub_carpetas:list)->str:
         listar_todo_local(path)
 
     else:
-        #PD: se puede usar os.path.split(path) para obtener una tupla (path, carpeta)
-        #y mostrarle la carpeta de la que acaba de salir, pero ya en los prints le muestro donde
-        #esta parado, asi que creo que no hace falta
         path = dirname(path)
         listar_todo_local(path)
 
     return path
 
 def navegar_entre_carpetas(path:str)->None: 
-    #1. Ver de modularizar un toque mas, esta medio largo, debajo de c/for que hace una accion se puede
-    #pd: recordar retornar el path nuevo e igualarlo a path para que funciona la logica  (Hecho)
-    #2. Ver de validar que no pueda volver mas atras de la carpeta en la que inicio, usar el len del
-    #path original p/eso (PREGUNTAR SI HACE FALTA)
     continuar =  True
     while continuar:
-        sub_carpetas = checkear_subcarpetas(path) #["SUB-CARPETA", "SUB-CARPETA", ...] Lista de STRs
-        #Se checkea para c/iteracion del ciclo, para que asi no me guarde la lista de carpetas
-        #anterior y solo se muestren las carpetas de la direc actual
+        sub_carpetas = checkear_subcarpetas(path)
         if sub_carpetas != []: #Checkeo que en verdad haya alguna sub carpeta para preguntar
             opcion_continuar = validar_ingreso_si_no(input("\nDesea navegar por las sub-carpetas?: "))
             if opcion_continuar.lower() == "si": 
-                #Solo se pregunta c/vez que se ejecuta el ciclo
-                #(se ejecuta unicamente si HAY sub-carpetas la preg si quiere cerrar, sino cierra de una)
                 path = opcion_navegar(path, sub_carpetas)
             else:
                 continuar = False
@@ -99,6 +88,6 @@ def navegar_entre_carpetas(path:str)->None:
                 continuar = False 
 
 def listar_archivos_locales()->None:
-    path = getcwd() #Carpeta actual
+    path = getcwd() 
     listar_todo_local(path)
     navegar_entre_carpetas(path)

@@ -3,17 +3,17 @@ from json import dumps, loads
 
 def listar_carpetas(servicio:str, id_carpeta_acceder:str)->None:
     files = servicio.files().list(fields='files(name, id, mimeType)', q="parents='{}'".format(id_carpeta_acceder)).execute().get('files')
-    print("\nLas carpetas de su sub-carpeta de id {} son: ".format(id_carpeta_acceder))
+    print("\nLas carpetas de su sub-carpeta son: ")
     for datos_carpeta in files:
         if datos_carpeta['mimeType'] == 'application/vnd.google-apps.folder':
-            print("Nombre de la carpeta: {} - ID de la carpeta: {}".format(datos_carpeta["name"], datos_carpeta["id"]))
+            print("Nombre de la carpeta: {}".format(datos_carpeta["name"]))
 
 def listar_archivos(servicio:str, id_carpeta_acceder:str)->None:
     files = servicio.files().list(fields='files(name, id, mimeType)', q="parents='{}'".format(id_carpeta_acceder)).execute().get('files')
-    print("\nLos archivos de su sub-carpeta de id {} son: ".format(id_carpeta_acceder))
+    print("\nLos archivos de su sub-carpeta son: ")
     for datos_carpeta in files:
         if datos_carpeta['mimeType'] != 'application/vnd.google-apps.folder':
-            print("Nombre del archivo: {} - ID del archivo {} - Tipo de archivo: {}".format(datos_carpeta["name"], datos_carpeta["id"], datos_carpeta["mimeType"]))
+            print("Nombre del archivo: {} - Tipo de archivo: {}".format(datos_carpeta["name"], datos_carpeta["mimeType"]))
 
 def listar_todo(servicio:str, id_carpeta_acceder:str)->None:
     listar_archivos(servicio, id_carpeta_acceder)
@@ -28,13 +28,13 @@ def checkear_sub_carpetas(servicio:str, id_carpeta_actual:str)->dict:
 
     return carpetas_validas
 
-def validar_ingreso_si_no(ingreso:str)->str: #SE USA EN EL OTRO ARCHIVO, BORRARLA DESPUES
+def validar_ingreso_si_no(ingreso:str)->str: 
     while ingreso.lower() != "si" and ingreso.lower() != "no":
         ingreso = input("Ingreso invalido, responda con si o no: ")
 
     return ingreso
 
-def validar_opcion_navegar(opcion_navegar:str)->None: #SE USA EN EL OTRO ARCHIVO, BORRARLA DESPUES
+def validar_opcion_navegar(opcion_navegar:str)->None: 
     while opcion_navegar.lower() != "volver" and opcion_navegar.lower() != "acceder":
         print("Responda con acceder o volver")
         opcion_navegar = input("Desea acceder a alguna de las carpetas o desea volver para atras?: ")
@@ -93,7 +93,7 @@ def opcion_navegar_subcarpetas(servicio:str, carpetas_validas:dict, ids_carpetas
             listar_todo(servicio, id_carpeta_actual)
 
 def listar_archivos_remotos()->None:
-    servicio = obtener_servicio() #Solo esto va afuera y en main, voy a pasarle siempre esto
+    servicio = obtener_servicio() 
     driveid = servicio.files().get(fileId='root').execute().get('id')
     listar_todo(servicio, driveid)
     ids_carpetas_recorridas = []

@@ -24,11 +24,9 @@ def todos_archivos_locales(path:str)->tuple:
             except:
                 pass
             #Hay archivos que son propios de git y estan ocultos, al parecer no tienen fecha de modificacion
-            #y al hacer esto me tira un error, por eso dejo esto asi. Lo de abajo es para que no 
-            #haya diferencias entre los diccionarios
-            #PD: Hablamos de sacarlo en el meet, pero fijandome el problema no era el try except
+            #y al hacer esto me tira un error
             if archivo in mtime_locales.keys():
-                paths_locales[archivo] = split(root)[0] #es el path del directorio del archivo
+                paths_locales[archivo] = split(root)[0]
         
     return paths_locales, mtime_locales
 
@@ -39,9 +37,6 @@ def todos_archivos_remotos(servicio:tuple)->dict:
     for archivo in files:
         extension = guess_extension(archivo['mimeType']) #Devuelve la extension con el punto o none
         if extension != None:
-        #guess_extension puede devolver None, asi que puede que ser pierdan archivos, pero al estar 
-        #trabajando con extensiones muy comunes, y al no encontrar una forma garantizada de que me devuelva 
-        #la extension correcta, voy a asumir que no se va a perder nada en medio
             nombre_archivo = archivo['name'] + extension
             try:
                datos_remotos[nombre_archivo] = [archivo['id'], archivo['mimeType'], archivo['name'], archivo['parents'][0]]
@@ -55,7 +50,7 @@ def todos_archivos_remotos(servicio:tuple)->dict:
     return datos_remotos, mtime_remotos  
 
 def obtener_mimetype(nombre_archivo:str)->str:
-    mimetype_corresp = guess_type(nombre_archivo) #Devuelve (mType, encoding), None en mType si no encuentra
+    mimetype_corresp = guess_type(nombre_archivo) 
     
     return mimetype_corresp[0]
 
@@ -66,34 +61,24 @@ def subir_archivo(servicio:tuple, datos_remotos:dict, archivo:str, mimetype_corr
     servicio.files().create(body=file_metadata, media_body=media_content).execute()
 
 def borrar_archivo_remoto(servicio:tuple, datos_remotos: dict, archivo:str)->None:
-    #Por ahi no tiene sentido hacer esta funcion, pero queda mas claro asi
     servicio.files().delete(fileId='{}'.format(datos_remotos[archivo][ID])).execute()
 
 def bajar_archivo(servicio:tuple, datos_remotos:dict, archivo:str)->None:
     request = servicio.files().get_media(fileId=datos_remotos[archivo][ID])
     fh = BytesIO() 
     MediaIoBaseDownload(fd=fh, request=request)
-    #No entiendo que hace esto, en la documentacion de la api no se explica bien, y
-    #googleando no termino de entender que es lo que realmente hace
     fh.seek(0)
     with open(abspath(archivo), 'wb') as f:
         f.write(fh.read())
-    #Esto esta hecho a ultimo momento con lo de agustin, no termino de enetender a donde baja 
-    #el archivo, el resto de la logica de sincronizar deberia estar bien
 
 def mover_archivo(archivo:str, paths_locales:dict)->None:
-    path_actual = abspath(archivo) #Lo deberia bajar a mi carpeta actual
+    path_actual = abspath(archivo) 
     path_deseado = paths_locales[archivo] #es la ubicacion del archivo borrado
     move(path_actual, path_deseado)
 
 def actualizar_archivos_comunes(mtime_locales:dict, mtime_remotos:dict, datos_remotos:dict, paths_locales:dict, servicio:tuple, path:str)->None:
-    #Aclaracion, ante CUALQUIER modifiacion va a cambiar el modified time y el archivo mas nuevo va a ser
-    #el que prevalezca sobre el otro
     for archivo in mtime_locales:
-        #da igual cual de los dos tome, siempre va a ver todos los que hay en comun
         if archivo in mtime_remotos:
-            #PD: el objeto datetime admite que compare de esta forma las fechas
-            #Lo que se compara es: Anio-mes-dia hora:minuto:segundo:milisegundo 
             if mtime_locales[archivo] > mtime_remotos[archivo]:
                 mimetype_corresp = obtener_mimetype(archivo)
                 subir_archivo(servicio, datos_remotos, archivo, mimetype_corresp)
@@ -108,7 +93,7 @@ def actualizar_archivos_comunes(mtime_locales:dict, mtime_remotos:dict, datos_re
     
 def syncronizar()->None:
     #PD: omiti la palabra archivos en todas las varaibles pq sino quedaban demasiado largos los 
-    #nombres, tambien mtime = modifiedtime
+    #nombres
     path = getcwd()
     servicio = obtener_servicio()
     archivos_locales = todos_archivos_locales(path)

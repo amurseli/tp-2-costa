@@ -4,8 +4,8 @@ from listar_archivos_remotos import listar_archivos_remotos
 def mostrar_opciones()->None:
     print(
     '''
-    1. Listar archivos remotos
-    2. Listar archivos en drive
+    1. Listar archivos locales
+    2. Listar archivos de su drive
 
     '''  )
 
