@@ -1,13 +1,8 @@
-from crear_archivos import crear_archivo_nuevo
-from descargar_archivo import descargar_archivos
-from subir_archivo import subir_archivos
-from seleccionar_carpeta import seleccionar_carpeta
+from modulo_drive import descargar_archivos, seleccionar_carpeta, syncronizar, listar_archivos, subir_archivos_drive, crear_archivo
 from service_drive import obtener_servicio_drive
 from service_gmail import obtener_servicio_gmail
-from syncronizar import syncronizar
-from listar_archivos import listar_archivos
-from mandar_mensaje import enviar_mensaje, enviar_mensaje_con_adjuntos
-from sistema_carpeta import sistema_carpeta
+
+
 
 SERVICE_DRIVE = obtener_servicio_drive()
 SERVICE_GMAIL = obtener_servicio_gmail()
@@ -40,9 +35,9 @@ def main() -> None:
         if opcion == 1:
             listar_archivos()
         elif opcion == 2:
-            crear_archivo_nuevo(SERVICE_DRIVE)
+            crear_archivo(SERVICE_DRIVE)
         elif opcion == 3:
-            subir_archivos(SERVICE_DRIVE)
+            subir_archivos_drive(SERVICE_DRIVE)
         elif opcion == 4:
             descargar_archivos(SERVICE_DRIVE)
         elif opcion == 5:
@@ -55,10 +50,7 @@ def main() -> None:
             enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje)
             sistema_carpeta()
             crear_archivo_nuevo(SERVICE_DRIVE)
-<<<<<<< HEAD
-=======
             
->>>>>>> testmain
         elif opcion == 7:
             print("Mail al que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
