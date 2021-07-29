@@ -21,6 +21,7 @@ def descomprimir_zip():
     
     return ruta_extraccion
 
+
 def docente_alumnos_CSV(path_docente_alumnos: str) -> list:
     docentes = list()
     alumnos = list()
