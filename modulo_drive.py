@@ -234,7 +234,7 @@ def opcion_navegar_subcarpetas_remoto(servicio:str, carpetas_validas:dict, ids_c
         else:
             ids_carpetas_recorridas.pop()
             id_carpeta_actual = ids_carpetas_recorridas[-1::1][0]
-            listar_todo(servicio, id_carpeta_actual)
+            listar_todo_remoto(servicio, id_carpeta_actual)
 
 def listar_archivos_remotos(servicio:tuple)->None:
     driveid = servicio.files().get(fileId='root').execute().get('id')
