@@ -1,6 +1,7 @@
-from modulo_drive import descargar_archivos, seleccionar_carpeta, syncronizar, listar_archivos, subir_archivos_drive, crear_archivo
 from service_drive import obtener_servicio_drive
 from service_gmail import obtener_servicio_gmail
+from modulo_drive import descargar_archivos, seleccionar_carpeta, syncronizar, listar_archivos, subir_archivos_drive, crear_archivo
+from modulo_gmail import enviar_mensajes, enviar_mensaje_con_adjunto, carpetas_anidadas
 
 SERVICE_DRIVE = obtener_servicio_drive()
 SERVICE_GMAIL = obtener_servicio_gmail()
@@ -31,7 +32,7 @@ def main() -> None:
         
         opcion = validar_opcion(1, 8)
         if opcion == 1:
-            listar_archivos()
+            listar_archivos(SERVICE_DRIVE)
         elif opcion == 2:
             crear_archivo(SERVICE_DRIVE)
         elif opcion == 3:
@@ -39,25 +40,15 @@ def main() -> None:
         elif opcion == 4:
             descargar_archivos(SERVICE_DRIVE)
         elif opcion == 5:
-            syncronizar()
+            syncronizar(SERVICE_DRIVE)
         elif opcion == 6:
-            print("Mail al que se le quiere enviar: ej:'example@algo.com'")
-            destinatario = input()
-            asunto = "DATOS"
-            mensaje = "A continuacion se creara en local evaluacion/docentes/alumnos y tambien una carpeta remota en drive y elija la opcion 4 para crear en remoto"
-            enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje)
-            sistema_carpeta()
-            crear_archivo_nuevo(SERVICE_DRIVE)
-            
+            subject= enviar_mensaje_con_adjunto(SERVICE_GMAIL)
+            carpetas_anidadas(subject)
         elif opcion == 7:
-            print("Mail al que se le quiere enviar: ej:'example@algo.com'")
-            destinatario = input()
-            asunto = "TENES ARCHIVOS"
-            mensaje = "Se te enviaron archivos para que lo subas a tu carpeta drive"
-            attachment = ['alumnos_docentes.zip']
-            enviar_mensaje_con_adjuntos(SERVICE_GMAIL, destinatario, asunto, mensaje, attachment)
-                       
-            #parte de drive
+            enviar_mensajes(SERVICE_GMAIL)
+            subir_archivos_drive(SERVICE_DRIVE)
         elif opcion == 8:
+            print("Saliendo del programa")
             continuar = False 
+
 main()
