@@ -4,14 +4,11 @@ from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build, Resource
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from crear_archivos import crear_archivo_nuevo
-from descargar_archivo import descargar_archivos
-from subir_archivo import subir_archivos
 
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 #Archivo generado para la api
-ARCHIVO_SECRET_CLIENT = 'client_secret.json'
+ARCHIVO_SECRET_CLIENT = 'client_secret_drive.json'
 
 PERMISOS = ['https://www.googleapis.com/auth/drive']
 
