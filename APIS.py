@@ -70,7 +70,7 @@ def enviar_mensaje_con_adjuntos_API(service, destinatario:str,asunto:str,mensaje
     raw_string = base64.urlsafe_b64encode(mimeMessage.as_bytes()).decode()
     enviar = service.users().messages().send(userId='me', body={'raw': raw_string}).execute()
     
-def leer_mensajes_API(service,q_str,destinatario):
+def leer_mensajes_API(service,q_str:str,destinatario:str)-> str:
     '''
     :param service: = funcion del servicio de google API  
     :param q_str: = el dato para poder filtrar los mails
@@ -87,7 +87,14 @@ def leer_mensajes_API(service,q_str,destinatario):
         print ("Mensaje:")
         for mensaje in mensajes[:1]:
             leer = service.users().messages().get(userId='me', id=mensaje['id']).execute()
-            print(leer['snippet'])
+            payload = leer.get("payload")
+            header = payload.get("headers")
+            for x in header:
+                if x['name'] == 'subject':
+                    sub = print(x['value']) #asunto
+            print(leer['snippet'])  #body
+        return sub
+
 
 #------------------#
 
@@ -103,7 +110,7 @@ def enviar_mensajes(SERVICE_GMAIL):
     except Exception as e:
         print(f"Ocurrio un error del tipo {e}\n por no seguir los pasos dictados.")
 
-def enviar_mensaje_con_adjunto(SERVICE_GMAIL):
+def enviar_mensaje_con_adjunto(SERVICE_GMAIL)->str:
     print("Mail al que se le quiere enviar, ej:example@algo.com")
     destinatario = input()
     asunto = "TENES ARCHIVOS"
@@ -112,7 +119,10 @@ def enviar_mensaje_con_adjunto(SERVICE_GMAIL):
     q_str = "subject:TENES ARCHIVOS"
     try:
         enviar_mensaje_con_adjuntos_API(SERVICE_GMAIL, destinatario, asunto, mensaje, attachment)
-        leer_mensajes_API(SERVICE_GMAIL, q_str,destinatario)
+        sub = leer_mensajes_API(SERVICE_GMAIL, q_str,destinatario)
+        return sub
     except Exception as e:
         print(f"Ocurrio un error del tipo {e}\n por no seguir los pasos dictados.")
+        return None
+
 
