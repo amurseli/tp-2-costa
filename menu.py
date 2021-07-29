@@ -55,6 +55,10 @@ def main() -> None:
             enviar_mensaje(SERVICE_GMAIL,destinatario,asunto,mensaje)
             sistema_carpeta()
             crear_archivo_nuevo(SERVICE_DRIVE)
+<<<<<<< HEAD
+=======
+            
+>>>>>>> testmain
         elif opcion == 7:
             print("Mail al que se le quiere enviar: ej:'example@algo.com'")
             destinatario = input()
