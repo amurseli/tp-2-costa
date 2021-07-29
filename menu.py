@@ -2,8 +2,6 @@ from modulo_drive import descargar_archivos, seleccionar_carpeta, syncronizar, l
 from service_drive import obtener_servicio_drive
 from service_gmail import obtener_servicio_gmail
 
-
-
 SERVICE_DRIVE = obtener_servicio_drive()
 SERVICE_GMAIL = obtener_servicio_gmail()
 

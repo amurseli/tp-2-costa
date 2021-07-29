@@ -8,7 +8,7 @@ from google.auth.transport.requests import Request
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 #Archivo generado para la api
-ARCHIVO_SECRET_CLIENT = 'client_secret.json'
+ARCHIVO_SECRET_CLIENT = 'client_secret_drive.json'
 
 PERMISOS = ['https://www.googleapis.com/auth/drive']
 
