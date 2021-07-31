@@ -400,7 +400,7 @@ def syncronizar(servicio:tuple)->None:
 
     actualizar_archivos_comunes(mtime_locales, mtime_remotos, datos_remotos, paths_locales, servicio, path)
 
-#DE ACA PARA ABAJO PARTE AGUSTIN
+#--------------DE ACA PARA ABAJO PARTE AGUSTIN--------------
 
 def seleccionar_carpeta(service, flag_empty = False) -> tuple:
     folder_id = " "
