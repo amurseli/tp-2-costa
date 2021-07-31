@@ -3,7 +3,7 @@ import csv
 import zipfile
 
 def descomprimir_zip():
-    zip = "\\datos.zip"
+    zip = "\\alumnos_docentes.zip"
     extraccion = "\\zip_descomprimido"
     ruta_zip = os.getcwd() + zip
     ruta_extraccion = os.getcwd() + extraccion
